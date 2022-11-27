@@ -1,0 +1,45 @@
+{
+  "personal": {
+    "identificacion": "43tt34t",
+    "nombre": "4t4tt4",
+    "apellidos": "434tt4",
+    "fechaNacimiento": {
+      "year": 2022,
+      "month": 11,
+      "day": 9
+    },
+    "direccion": "3g453y645y",
+    "codigoPostal": "5543t",
+    "localidad": "gregr",
+    "pais": "Angola",
+    "nacionalidades": [
+      {
+        "denominacion": "andorrano"
+      },
+      {
+        "denominacion": "null"
+      }
+    ]
+  },
+  "contacto": {
+    "telefonos": [
+      {
+        "numero": "qffqe",
+        "tipo": "DOMICILIO"
+      }
+    ],
+    "emails": [
+      {
+        "direccion": "weffe"
+      }
+    ],
+    "webs": [
+      {
+        "url": "http://wefef"
+      }
+    ]
+  },
+  "formacion": null,
+  "experiencias": null,
+  "habilidades": null
+}

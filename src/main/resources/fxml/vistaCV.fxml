@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <SplitPane dividerPositions="0.33, 0.66" orientation="VERTICAL" BorderPane.alignment="CENTER">
+         <items>
+            <TitledPane animated="false" collapsible="false" text="Teléfono">
+              <content>
+                <AnchorPane />
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" collapsible="false" text="Correos electrónicos">
+               <content>
+                  <AnchorPane />
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" collapsible="false" text="Webs">
+               <content>
+                  <AnchorPane />
+               </content>
+            </TitledPane>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>
