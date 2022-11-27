@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -156,7 +157,9 @@ public class MainController implements Initializable {
 		
 		contactoController.getTelefonosTable().itemsProperty().set(cv.getContacto().getTelefonos());
 		contactoController.getEmailTable().itemsProperty().set(cv.getContacto().getEmails());
-		contactoController.getWebTable().itemsProperty().set(cv.getContacto().getWebs()); ///////////////////
+		contactoController.getWebTable().itemsProperty().set(cv.getContacto().getWebs());
+		
+		formacionController.getFormacionTabla().itemsProperty().set(cv.getFormacion());
 	}
 
 	@FXML
@@ -179,13 +182,10 @@ public class MainController implements Initializable {
 		contacto.setEmails(contactoController.getModel().getEmails());
 		contacto.setWebs(contactoController.getModel().getWebs());
 		
-		Titulo titulo = new Titulo();
-		titulo.setDenominacion(formacionController.getDenominacionColumna().getText());
-		
 		CV cv = new CV();
 		cv.setPersonal(personal);
 		cv.setContacto(contacto);
-		cv.getFormacion().add(titulo);
+		cv.setFormacion(formacionController.getTitulos()); ////////
 		
 		String json = gson.toJson(cv, CV.class);
 		

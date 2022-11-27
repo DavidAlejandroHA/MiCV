@@ -39,7 +39,36 @@
       }
     ]
   },
-  "formacion": null,
+  "formacion": [
+    {
+      "desde": {
+        "year": 2022,
+        "month": 11,
+        "day": 10
+      },
+      "hasta": {
+        "year": 2022,
+        "month": 11,
+        "day": 9
+      },
+      "denominacion": "asas",
+      "organizador": "a"
+    },
+    {
+      "desde": {
+        "year": 2022,
+        "month": 11,
+        "day": 23
+      },
+      "hasta": {
+        "year": 2022,
+        "month": 11,
+        "day": 22
+      },
+      "denominacion": "fd",
+      "organizador": "d"
+    }
+  ],
   "experiencias": null,
   "habilidades": null
 }

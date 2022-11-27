@@ -11,6 +11,7 @@ import dad.micv.dialogos.TituloDialog;
 import dad.micv.model.Titulo;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +46,7 @@ public class FormacionController implements Initializable {
 	@FXML
 	private BorderPane view;
 
-	private ListProperty<Titulo> formacion = new SimpleListProperty<>();
+	private ListProperty<Titulo> formacion = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -113,5 +114,9 @@ public class FormacionController implements Initializable {
 
 	public BorderPane getView() {
 		return view;
+	}
+	
+	public ListProperty<Titulo> getTitulos(){
+		return formacion;
 	}
 }
