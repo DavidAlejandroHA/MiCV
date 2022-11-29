@@ -110,13 +110,6 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			personalController.getPaisComboBox().getItems().setAll(loadPaises("/csv/paises.csv"));
-		} catch (Exception e) {
-			// TODO Añadir alert
-			System.out.println("test1");
-			e.printStackTrace();
-		}
 		personalTab.setContent(personalController.getView());
 		contactoTab.setContent(contactoController.getView());
 		formacionTab.setContent(formacionController.getView());
@@ -199,14 +192,6 @@ public class MainController implements Initializable {
 	@FXML
 	void onSalirAction(ActionEvent event) {
 
-	}
-	
-	public static List<String> loadPaises(String filename) throws Exception{
-		URL url = MainController.class.getResource(filename); // no usar File para acceder a resources
-		List<String> lines = Files.readAllLines(Paths.get(url.toURI()), StandardCharsets.UTF_8);
-		return lines.stream() // flujo de objetos de la colección
-					.filter(s -> s.length()>0) // esto es por si existe líneas "vacías" que contienen el retorno de carro
-					.collect(Collectors.toList());
 	}
 
 }

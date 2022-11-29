@@ -2,14 +2,21 @@ package dad.micv.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import dad.micv.MainController;
 import dad.micv.MiCVApp;
 import dad.micv.dialogos.NacionalidadDialog;
 import dad.micv.model.Nacionalidad;
 import dad.micv.model.Personal;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +30,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class PersonalController implements Initializable {
+
+	// model
+
+	private ObjectProperty<Personal> personal = new SimpleObjectProperty<>();
+
+	// view
+	
 	@FXML
 	private TextField apellidosTexto;
 
@@ -59,16 +73,7 @@ public class PersonalController implements Initializable {
 	@FXML
 	private GridPane view;
 
-	private ObjectProperty<Personal> personal = new SimpleObjectProperty<>();
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		//
-		personal.get().identificacionProperty().bindBidirectional(dniTexto.textProperty());
-
-	}
-
+	
 	public PersonalController() {
 
 		try {
@@ -78,6 +83,59 @@ public class PersonalController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+		try {
+			paisComboBox.getItems().setAll(loadPaises("/csv/paises.csv"));
+		} catch (Exception e) {
+			// TODO Añadir alert
+			System.out.println("test1");
+			e.printStackTrace();
+		}
+
+		
+		personal.addListener(this::onPersonalChanged);
+		
+		
+	}
+
+	private void onPersonalChanged(ObservableValue<? extends Personal> o, Personal ov, Personal nv) {
+
+		if (ov != null) {
+			
+			dniTexto.textProperty().unbindBidirectional(ov.identificacionProperty());
+			nombreTexto.textProperty().unbindBidirectional(ov.nombreProperty());
+			apellidosTexto.textProperty().unbindBidirectional(ov.apellidosProperty());
+			fechaDatePicker.valueProperty().unbindBidirectional(ov.fechaNacimientoProperty());
+			direccionTexto.textProperty().unbindBidirectional(ov.direccionProperty());
+			cPostaltexto.textProperty().unbindBidirectional(ov.codigoPostalProperty());
+			localidadTexto.textProperty().unbindBidirectional(ov.localidadProperty());
+			nv.paisProperty().unbind();			
+			nacionalidadesListView.itemsProperty().unbind();
+
+			
+		}
+		
+		if (nv != null) {
+			
+			dniTexto.textProperty().bindBidirectional(nv.identificacionProperty());
+			nombreTexto.textProperty().bindBidirectional(nv.nombreProperty());
+			apellidosTexto.textProperty().bindBidirectional(nv.apellidosProperty());
+			fechaDatePicker.valueProperty().bindBidirectional(nv.fechaNacimientoProperty());
+			direccionTexto.textProperty().bindBidirectional(nv.direccionProperty());
+			cPostaltexto.textProperty().bindBidirectional(nv.codigoPostalProperty());
+			localidadTexto.textProperty().bindBidirectional(nv.localidadProperty());
+			
+			paisComboBox.getSelectionModel().select(nv.getPais());
+			nv.paisProperty().bind(paisComboBox.getSelectionModel().selectedItemProperty());
+			
+			nacionalidadesListView.itemsProperty().bind(nv.nacionalidadesProperty());
+			
+		}
+		
 	}
 
 	public GridPane getView() {
@@ -103,86 +161,24 @@ public class PersonalController implements Initializable {
 				.remove(nacionalidadesListView.getSelectionModel().selectedIndexProperty().get());
 	}
 
-	public TextField getApellidosTexto() {
-		return apellidosTexto;
-	}
-
-	public TextField getcPostaltexto() {
-		return cPostaltexto;
-	}
-
-	public TextArea getDireccionTexto() {
-		return direccionTexto;
-	}
-
-	public TextField getDniTexto() {
-		return dniTexto;
-	}
-
-	public DatePicker getFechaDatePicker() {
-		return fechaDatePicker;
-	}
-
-	public TextField getLocalidadTexto() {
-		return localidadTexto;
-	}
-
-	public Button getMasBoton() {
-		return masBoton;
-	}
-
-	public Button getMenosBoton() {
-		return menosBoton;
-	}
-
-	public ListView<Nacionalidad> getNacionalidadesListView() {
-		return nacionalidadesListView;
-	}
-
-	public TextField getNombreTexto() {
-		return nombreTexto;
-	}
-
-	public ComboBox<String> getPaisComboBox() {
-		return paisComboBox;
-	}
-
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;
 	}
 
 	public final Personal getPersonal() {
-		
-		//this.personal.get().setIdentificacion(dniTexto.getText());
-		this.personal.get().setNombre(nombreTexto.getText());
-		this.personal.get().setApellidos(apellidosTexto.getText());
-		this.personal.get().setFechaNacimiento((fechaDatePicker.getValue()));
-		this.personal.get().setDireccion(direccionTexto.getText());
-		this.personal.get().setCodigoPostal(cPostaltexto.getText());
-		this.personal.get().setLocalidad(localidadTexto.getText());
-		this.personal.get().setPais(paisComboBox.getSelectionModel().selectedItemProperty().get());
-		this.personal.get().setNacionalidades(nacionalidadesListView.itemsProperty().get());
-		
 		return this.personalProperty().get();
 	}
 	
-
 	public final void setPersonal(final Personal personal) {
 		this.personalProperty().set(personal);
-		
-		//getPersonal().identificacionProperty().bind(dniTexto.textProperty());
-		
-		
-		
-		//dniTexto.textProperty().set(this.personal.get().getIdentificacion());
-		nombreTexto.textProperty().set(this.personal.get().getNombre());
-		apellidosTexto.textProperty().set(this.personal.get().getApellidos());
-		fechaDatePicker.setValue(this.personal.get().getFechaNacimiento());
-		direccionTexto.textProperty().set(this.personal.get().getDireccion());
-		cPostaltexto.textProperty().set(this.personal.get().getCodigoPostal());
-		localidadTexto.textProperty().set(this.personal.get().getLocalidad());
-		paisComboBox.getSelectionModel().select(this.personal.get().getPais());
-		nacionalidadesListView.itemsProperty().set(this.personal.get().getNacionalidades());
 	}
-
+	
+	public static List<String> loadPaises(String filename) throws Exception{
+		URL url = MainController.class.getResource(filename); // no usar File para acceder a resources
+		List<String> lines = Files.readAllLines(Paths.get(url.toURI()), StandardCharsets.UTF_8);
+		return lines.stream() // flujo de objetos de la colección
+					.filter(s -> s.length()>0) // esto es por si existe líneas "vacías" que contienen el retorno de carro
+					.collect(Collectors.toList());
+	}
+	
 }

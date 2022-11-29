@@ -1,6 +1,6 @@
 {
   "personal": {
-    "identificacion": "sdst",
+    "identificacion": "1235678\u003eZ",
     "nombre": "4t4tt4",
     "apellidos": "434tt4",
     "fechaNacimiento": {
@@ -11,13 +11,16 @@
     "direccion": "3g453y645y",
     "codigoPostal": "5543t",
     "localidad": "gregr",
-    "pais": "Angola",
+    "pais": "Alemania",
     "nacionalidades": [
       {
         "denominacion": "andorrano"
       },
       {
         "denominacion": "angolano"
+      },
+      {
+        "denominacion": "﻿afgano"
       }
     ]
   },
