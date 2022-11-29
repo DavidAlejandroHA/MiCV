@@ -12,6 +12,7 @@ import dad.micv.model.Titulo;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,7 +56,6 @@ public class FormacionController implements Initializable {
 		hastaColumna.setCellValueFactory(valor -> valor.getValue().hastaProperty());
 		denominacionColumna.setCellValueFactory(valor -> valor.getValue().denominacionProperty());
 		organizadorColumna.setCellValueFactory(valor -> valor.getValue().organizadorProperty());
-
 	}
 
 	public FormacionController() {
@@ -78,45 +78,32 @@ public class FormacionController implements Initializable {
 			formacion.add(valores.get());
 		}
 	}
-
-	@FXML
-	void onEliminarFormacion(ActionEvent event) {
-
-	}
-
-	public Button getAnadirFormacionBoton() {
-		return anadirFormacionBoton;
-	}
-
-	public TableColumn<Titulo, String> getDenominacionColumna() {
-		return denominacionColumna;
-	}
-
-	public TableColumn<Titulo, LocalDate> getDesdeColumna() {
-		return desdeColumna;
-	}
-
-	public Button getEliminarFormacionBoton() {
-		return eliminarFormacionBoton;
-	}
-
-	public TableView<Titulo> getFormacionTabla() {
-		return formacionTabla;
-	}
-
-	public TableColumn<Titulo, LocalDate> getHastaColumna() {
-		return hastaColumna;
-	}
-
-	public TableColumn<Titulo, String> getOrganizadorColumna() {
-		return organizadorColumna;
-	}
-
+	
 	public BorderPane getView() {
 		return view;
 	}
+
+	@FXML
+	void onEliminarFormacion(ActionEvent event) {
+		formacion.remove(formacionTabla.getSelectionModel().selectedIndexProperty().get());
+	}
+
+	public final ListProperty<Titulo> formacionProperty() {
+		return this.formacion;
+	}
+	
+
+	public final ObservableList<Titulo> getFormacion() {
+		return this.formacionProperty().get();
+	}
+	
+
+	public final void setFormacion(final ObservableList<Titulo> formacion) {
+		this.formacionProperty().set(formacion);
+		formacionTabla.itemsProperty().set(formacion);
+	}
 	
 	public ListProperty<Titulo> getTitulos(){
-		return formacion;
+		return this.formacion;
 	}
 }

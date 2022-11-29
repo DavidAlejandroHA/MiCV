@@ -1,6 +1,6 @@
 {
   "personal": {
-    "identificacion": "sdst",
+    "identificacion": "43tt34t",
     "nombre": "4t4tt4",
     "apellidos": "434tt4",
     "fechaNacimiento": {
@@ -67,22 +67,23 @@
       },
       "denominacion": "fddsfd42t",
       "organizador": "df"
-    },
+    }
+  ],
+  "experiencias": [
     {
       "desde": {
         "year": 2022,
         "month": 11,
-        "day": 10
+        "day": 3
       },
       "hasta": {
         "year": 2022,
         "month": 11,
-        "day": 10
+        "day": 8
       },
-      "denominacion": "23",
-      "organizador": "1"
+      "denominacion": "d3r",
+      "empleador": "34"
     }
   ],
-  "experiencias": [],
   "habilidades": []
 }

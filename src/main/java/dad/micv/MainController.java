@@ -8,9 +8,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -28,9 +26,13 @@ import dad.micv.controller.FormacionController;
 import dad.micv.controller.PersonalController;
 import dad.micv.model.CV;
 import dad.micv.model.Contacto;
+import dad.micv.model.Experiencia;
 import dad.micv.model.LocalDateAdapter;
 import dad.micv.model.Personal;
 import dad.micv.model.Titulo;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -145,47 +147,37 @@ public class MainController implements Initializable {
 		// https://jenkov.com/tutorials/javafx/filechooser.html
 		File selectedFile = fileChooser.showOpenDialog(MiCVApp.primaryStage);
 		CV cv = gson.fromJson(new FileReader(selectedFile), CV.class);
-		personalController.getDniTexto().textProperty().set(cv.getPersonal().getIdentificacion());
-		personalController.getNombreTexto().textProperty().set(cv.getPersonal().getNombre());
-		personalController.getApellidosTexto().textProperty().set(cv.getPersonal().getApellidos());
-		personalController.getFechaDatePicker().setValue(cv.getPersonal().getFechaNacimiento());
-		personalController.getDireccionTexto().textProperty().set(cv.getPersonal().getDireccion());
-		personalController.getcPostaltexto().textProperty().set(cv.getPersonal().getCodigoPostal());
-		personalController.getLocalidadTexto().textProperty().set(cv.getPersonal().getLocalidad());
-		personalController.getPaisComboBox().getSelectionModel().select(cv.getPersonal().getPais());
-		personalController.getNacionalidadesListView().itemsProperty().set(cv.getPersonal().getNacionalidades());
 		
-		contactoController.getTelefonosTable().itemsProperty().set(cv.getContacto().getTelefonos());
-		contactoController.getEmailTable().itemsProperty().set(cv.getContacto().getEmails());
-		contactoController.getWebTable().itemsProperty().set(cv.getContacto().getWebs());
+		personalController.setPersonal(cv.getPersonal());
 		
-		formacionController.getFormacionTabla().itemsProperty().set(cv.getFormacion());
+		contactoController.setContacto(cv.getContacto());//  */
+		
+		formacionController.setFormacion(cv.getFormacion());
+		
+		experienciaController.setExperiencias(cv.getExperiencias());
+		//experienciaController.experienciasProperty().bind(cv.experienciasProperty());
 	}
 
 	@FXML
 	void onGuardarAction(ActionEvent event) throws IOException {
-		Personal personal = new Personal();
-		personal.setIdentificacion(personalController.getDniTexto().textProperty().get());
-		personal.setNombre(personalController.getNombreTexto().textProperty().get());
-		personal.setApellidos(personalController.getApellidosTexto().textProperty().get());
-		personal.setFechaNacimiento(personalController.getFechaDatePicker().getValue());
-		personal.setDireccion(personalController.getDireccionTexto().textProperty().get());
-		personal.setCodigoPostal(personalController.getcPostaltexto().textProperty().get());
-		personal.setLocalidad(personalController.getLocalidadTexto().textProperty().get());
-		personal.setPais(personalController.getPaisComboBox().getSelectionModel().getSelectedItem());
-		//personal.getNacionalidades().add(new Nacionalidad("Española"));
-		//personal.getNacionalidades().add(new Nacionalidad("Americana"));
-		personal.setNacionalidades(personalController.getNacionalidadesListView().getItems());
+		Personal personal = personalController.getPersonal();
 		
-		Contacto contacto = new Contacto();
-		contacto.setTelefonos(contactoController.getModel().getTelefonos());
+		Contacto contacto = contactoController.getContacto();
+		/*contacto.setTelefonos(contactoController.getModel().getTelefonos());
 		contacto.setEmails(contactoController.getModel().getEmails());
-		contacto.setWebs(contactoController.getModel().getWebs());
+		contacto.setWebs(contactoController.getModel().getWebs());*/
+		
+		ListProperty<Titulo> titulos = new SimpleListProperty<>(FXCollections.observableArrayList());
+		titulos.set(formacionController.getTitulos());
+		
+		ListProperty<Experiencia> experiencias = new SimpleListProperty<>(FXCollections.observableArrayList());
+		titulos.set(formacionController.getTitulos());
 		
 		CV cv = new CV();
 		cv.setPersonal(personal);
 		cv.setContacto(contacto);
-		cv.setFormacion(formacionController.getTitulos()); ////////
+		cv.setFormacion(titulos);
+		cv.setExperiencias(experiencias); ////////
 		
 		String json = gson.toJson(cv, CV.class);
 		

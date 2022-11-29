@@ -4,14 +4,15 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CV {
 	private ObjectProperty<Personal> personal = new SimpleObjectProperty<>();
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<>();
-	private ListProperty<Titulo> formacion = new SimpleListProperty<>();
-	private ListProperty<Experiencia> experiencias = new SimpleListProperty<>();
-	private ListProperty<Conocimiento> habilidades = new SimpleListProperty<>();
+	private ListProperty<Titulo> formacion = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private ListProperty<Experiencia> experiencias = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private ListProperty<Conocimiento> habilidades = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;

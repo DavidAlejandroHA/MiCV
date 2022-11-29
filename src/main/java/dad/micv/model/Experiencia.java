@@ -60,5 +60,4 @@ public class Experiencia {
 	public final void setEmpleador(final String empleador) {
 		this.empleadorProperty().set(empleador);
 	}
-
 }

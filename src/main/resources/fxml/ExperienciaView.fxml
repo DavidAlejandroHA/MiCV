@@ -12,8 +12,8 @@
    <right>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="anadirExpBoton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Añadir" />
-            <Button fx:id="eliminarExpBoton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="anadirExpBoton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAnadirExperiencia" text="Añadir" />
+            <Button fx:id="eliminarExpBoton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onEliminarExperiencia" text="Eliminar" />
          </children>
          <padding>
             <Insets bottom="5.0" right="5.0" top="5.0" />

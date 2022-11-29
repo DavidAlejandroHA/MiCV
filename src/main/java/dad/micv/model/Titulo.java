@@ -13,12 +13,6 @@ public class Titulo {
 	private StringProperty denominacion = new SimpleStringProperty();
 	private StringProperty organizador = new SimpleStringProperty();
 	
-	/*public Titulo(ObjectProperty<LocalDate> desde, ObjectProperty<LocalDate> hasta, StringProperty denom, StringProperty org) {
-		this.desde = desde;
-		this.hasta = hasta;
-		this.denominacion = denom;
-		this.organizador = org;
-	}*/
 	public final ObjectProperty<LocalDate> desdeProperty() {
 		return this.desde;
 	}
@@ -66,5 +60,4 @@ public class Titulo {
 	public final void setOrganizador(final String organizador) {
 		this.organizadorProperty().set(organizador);
 	}
-
 }

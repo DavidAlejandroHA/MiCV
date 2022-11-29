@@ -64,6 +64,8 @@ public class PersonalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		//
+		personal.get().identificacionProperty().bindBidirectional(dniTexto.textProperty());
 
 	}
 
@@ -150,11 +152,37 @@ public class PersonalController implements Initializable {
 	}
 
 	public final Personal getPersonal() {
+		
+		//this.personal.get().setIdentificacion(dniTexto.getText());
+		this.personal.get().setNombre(nombreTexto.getText());
+		this.personal.get().setApellidos(apellidosTexto.getText());
+		this.personal.get().setFechaNacimiento((fechaDatePicker.getValue()));
+		this.personal.get().setDireccion(direccionTexto.getText());
+		this.personal.get().setCodigoPostal(cPostaltexto.getText());
+		this.personal.get().setLocalidad(localidadTexto.getText());
+		this.personal.get().setPais(paisComboBox.getSelectionModel().selectedItemProperty().get());
+		this.personal.get().setNacionalidades(nacionalidadesListView.itemsProperty().get());
+		
 		return this.personalProperty().get();
 	}
+	
 
 	public final void setPersonal(final Personal personal) {
 		this.personalProperty().set(personal);
+		
+		//getPersonal().identificacionProperty().bind(dniTexto.textProperty());
+		
+		
+		
+		//dniTexto.textProperty().set(this.personal.get().getIdentificacion());
+		nombreTexto.textProperty().set(this.personal.get().getNombre());
+		apellidosTexto.textProperty().set(this.personal.get().getApellidos());
+		fechaDatePicker.setValue(this.personal.get().getFechaNacimiento());
+		direccionTexto.textProperty().set(this.personal.get().getDireccion());
+		cPostaltexto.textProperty().set(this.personal.get().getCodigoPostal());
+		localidadTexto.textProperty().set(this.personal.get().getLocalidad());
+		paisComboBox.getSelectionModel().select(this.personal.get().getPais());
+		nacionalidadesListView.itemsProperty().set(this.personal.get().getNacionalidades());
 	}
 
 }

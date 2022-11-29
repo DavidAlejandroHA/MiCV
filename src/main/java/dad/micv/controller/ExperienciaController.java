@@ -2,8 +2,18 @@ package dad.micv.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.micv.MiCVApp;
+import dad.micv.dialogos.ExperienciaDialog;
+import dad.micv.model.Experiencia;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,32 +27,37 @@ public class ExperienciaController implements Initializable {
 	private Button anadirExpBoton;
 
 	@FXML
-	private TableColumn<?, ?> denominacionColumna;
+	private TableColumn<Experiencia, String> denominacionColumna;
 
 	@FXML
-	private TableColumn<?, ?> desdeColumna;
+	private TableColumn<Experiencia, LocalDate> desdeColumna;
 
 	@FXML
 	private Button eliminarExpBoton;
 
 	@FXML
-	private TableColumn<?, ?> empleadorColumna;
+	private TableColumn<Experiencia, String> empleadorColumna;
 
 	@FXML
-	private TableView<?> experienciaTabla;
+	private TableView<Experiencia> experienciaTabla;
 
 	@FXML
-	private TableColumn<?, ?> hastaColumna;
+	private TableColumn<Experiencia, LocalDate> hastaColumna;
 
 	@FXML
 	private BorderPane view;
 
+	private ListProperty<Experiencia> experiencias = new SimpleListProperty<>(FXCollections.observableArrayList());
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
+		experienciaTabla.itemsProperty().bindBidirectional(experiencias);
+		desdeColumna.setCellValueFactory(valor -> valor.getValue().desdeProperty());
+		hastaColumna.setCellValueFactory(valor -> valor.getValue().hastaProperty());
+		denominacionColumna.setCellValueFactory(valor -> valor.getValue().denominacionProperty());
+		empleadorColumna.setCellValueFactory(valor -> valor.getValue().empleadorProperty());
 	}
-	
+
 	public ExperienciaController() {
 
 		try {
@@ -58,4 +73,35 @@ public class ExperienciaController implements Initializable {
 		return view;
 	}
 
+	@FXML
+	void onAnadirExperiencia(ActionEvent event) {
+		ExperienciaDialog dialogo = new ExperienciaDialog();
+		dialogo.initOwner(MiCVApp.primaryStage);
+		Optional<Experiencia> valores = dialogo.showAndWait();
+		if (valores.isPresent()) { // El Optional permite comprobar si todos los valores están presentes
+			//System.out.println(valores.get().getDenominacion().toString());
+			experiencias.add(valores.get());
+		}
+	}
+
+	@FXML
+	void onEliminarExperiencia(ActionEvent event) {
+		experiencias.remove(experienciaTabla.getSelectionModel().selectedIndexProperty().get());
+	}
+
+	public final ListProperty<Experiencia> experienciasProperty() {
+		return this.experiencias;
+	}
+	
+
+	public final ObservableList<Experiencia> getExperiencias() {
+		return this.experienciasProperty().get();
+	}
+	
+
+	public final void setExperiencias(final ObservableList<Experiencia> experiencias) {
+		this.experienciasProperty().set(experiencias);
+		experienciaTabla.itemsProperty().set(experiencias);
+	}
+	
 }

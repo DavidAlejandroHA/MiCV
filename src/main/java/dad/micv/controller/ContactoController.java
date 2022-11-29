@@ -202,4 +202,16 @@ public class ContactoController implements Initializable {
 	public TableView<Web> getWebTable() {
 		return webTable;
 	}
+	
+	public void setContacto(Contacto c) {
+		this.contacto = c;
+		telefonosTable.itemsProperty().set(contacto.getTelefonos());
+		emailTable.itemsProperty().set(contacto.getEmails());
+		webTable.itemsProperty().set(contacto.getWebs());
+	}
+
+	public Contacto getContacto() {
+		return contacto;
+	}
+	
 }

@@ -5,7 +5,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import dad.micv.model.Titulo;
+import dad.micv.model.Experiencia;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,14 +22,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 
-public class TituloDialog extends Dialog<Titulo> implements Initializable {
+public class ExperienciaDialog extends Dialog<Experiencia> implements Initializable {
 
 	// model
-	
+
 	private ObjectProperty<LocalDate> desde = new SimpleObjectProperty<>();
 	private ObjectProperty<LocalDate> hasta = new SimpleObjectProperty<>();
 	private StringProperty denominacion = new SimpleStringProperty();
-	private StringProperty organizador = new SimpleStringProperty();
+	private StringProperty empleador = new SimpleStringProperty();
 
 	// view
 
@@ -43,15 +43,15 @@ public class TituloDialog extends Dialog<Titulo> implements Initializable {
     private TextField denominacionTextField;
 
     @FXML
-    private TextField organizadorTextField;
+    private TextField empleadorTextField;
 
     @FXML
     private GridPane view;
 
-	public TituloDialog() {
+	public ExperienciaDialog() {
 		super();
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NuevoTitulo.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NuevaExperiencia.fxml"));
 			loader.setController(this);
 			loader.load();
 		} catch (IOException e) {
@@ -65,9 +65,8 @@ public class TituloDialog extends Dialog<Titulo> implements Initializable {
 		// init dialog
 
 		ButtonType crearButtonType = new ButtonType("Crear", ButtonData.OK_DONE);
-		//getDialogPane().setGraphic(new ImageView("/com/sun/javafx/scene/control/skin/caspian/dialog-confirm.png"));
-		setWidth(200);
-		setHeight(180);
+		setWidth(800);
+		setHeight(280);
 		setTitle("Nuevo Título");
 		getDialogPane().setContent(view);
 		getDialogPane().getButtonTypes().addAll(crearButtonType, ButtonType.CANCEL);
@@ -79,7 +78,7 @@ public class TituloDialog extends Dialog<Titulo> implements Initializable {
 		// bindings
 		
 		denominacion.bind(denominacionTextField.textProperty());
-		organizador.bind(organizadorTextField.textProperty());
+		empleador.bind(empleadorTextField.textProperty());
 		desde.bind(desdeDatePicker.valueProperty());
 		hasta.bind(hastaDatePicker.valueProperty());
 		
@@ -87,20 +86,20 @@ public class TituloDialog extends Dialog<Titulo> implements Initializable {
 		crearButton.disableProperty().bind(Bindings.when(desdeDatePicker.valueProperty().isNull()
 				.or(hastaDatePicker.valueProperty().isNull())
 				.or(denominacionTextField.textProperty().isEmpty())
-				.or(organizadorTextField.textProperty().isEmpty()))
+				.or(empleadorTextField.textProperty().isEmpty()))
 					.then(true)
 					.otherwise(false));
 
 	}
 
-	private Titulo onConvertResult(ButtonType buttonType) {
+	private Experiencia onConvertResult(ButtonType buttonType) {
 		if (buttonType.getButtonData() == ButtonData.OK_DONE) {
-			Titulo titulo = new Titulo();
-			titulo.setDenominacion(denominacion.get());
-			titulo.setOrganizador(organizador.get());
-			titulo.setDesde(desde.get());
-			titulo.setHasta(hasta.get());
-			return titulo;
+			Experiencia experiencia = new Experiencia();
+			experiencia.setDenominacion(denominacion.get());
+			experiencia.setEmpleador(empleador.get());
+			experiencia.setDesde(desde.get());
+			experiencia.setHasta(hasta.get());
+			return experiencia;
 		}
 		return null;
 	}
