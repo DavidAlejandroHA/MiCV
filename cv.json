@@ -1,0 +1,91 @@
+{
+  "personal": {
+    "identificacion": "123432t43t",
+    "nombre": "dvvvvvvvvvv",
+    "apellidos": "bhbhbhbhbhbhbhbhbhbhbh",
+    "fechaNacimiento": {
+      "year": 2022,
+      "month": 12,
+      "day": 10
+    },
+    "direccion": "r3r3",
+    "codigoPostal": "3432234x",
+    "localidad": "3t4t43tt4nnnnn",
+    "pais": "Alemania",
+    "nacionalidades": [
+      {
+        "denominacion": "americano"
+      },
+      {
+        "denominacion": "armenio"
+      }
+    ]
+  },
+  "contacto": {
+    "telefonos": [
+      {
+        "numero": "1234656",
+        "tipo": "MOVIL"
+      },
+      {
+        "numero": "er321",
+        "tipo": "MOVIL"
+      }
+    ],
+    "emails": [
+      {
+        "direccion": "21e1r13rf23"
+      }
+    ],
+    "webs": [
+      {
+        "url": "http://f4432gf43.53"
+      }
+    ]
+  },
+  "formacion": [
+    {
+      "desde": {
+        "year": 2022,
+        "month": 12,
+        "day": 8
+      },
+      "hasta": {
+        "year": 2022,
+        "month": 11,
+        "day": 30
+      },
+      "denominacion": "form1223",
+      "organizador": "er321e"
+    }
+  ],
+  "experiencias": [
+    {
+      "desde": {
+        "year": 2022,
+        "month": 12,
+        "day": 8
+      },
+      "hasta": {
+        "year": 2022,
+        "month": 11,
+        "day": 29
+      },
+      "denominacion": "denom123",
+      "empleador": "f342e234"
+    }
+  ],
+  "habilidades": [
+    {
+      "denominacion": "123c",
+      "nivel": "MEDIO",
+      "type": "Conocimiento"
+    },
+    {
+      "denominacion": "r33ri",
+      "nivel": "AVANZADO",
+      "type": "Idioma",
+      "certificacion": "i"
+    }
+  ]
+}
