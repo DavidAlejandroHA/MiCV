@@ -1,0 +1,33 @@
+{
+  "personal": {
+    "identificacion": null,
+    "nombre": null,
+    "apellidos": null,
+    "fechaNacimiento": null,
+    "direccion": null,
+    "codigoPostal": null,
+    "localidad": null,
+    "pais": null,
+    "nacionalidades": []
+  },
+  "contacto": {
+    "telefonos": [],
+    "emails": [],
+    "webs": []
+  },
+  "formacion": [],
+  "experiencias": [],
+  "habilidades": [
+    {
+      "denominacion": "123c",
+      "nivel": "MEDIO",
+      "type": "Conocimiento"
+    },
+    {
+      "denominacion": "r33ri",
+      "nivel": "AVANZADO",
+      "type": "Idioma",
+      "certificacion": "i"
+    }
+  ]
+}
